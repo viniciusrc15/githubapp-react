@@ -2,9 +2,9 @@
 
 import React from 'react'
 
-const Search = () => (
+const Search = ({ handleSearch }) => (
     <div className="search">
-        <input type="search" placeholder="Nome do usuário do GitHub" />
+        <input type="search" placeholder="Nome do usuário do GitHub" onKeyUp={handleSearch} />
     </div>
 )
 
