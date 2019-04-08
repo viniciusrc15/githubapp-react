@@ -28,7 +28,6 @@ class App extends Component {
 
     handleSearch(e) {
         const key = e.which || e.keyCode
-        console.log('hsgdfhg==>', key)
         if (key === 13) {
             ajax().get(`https://api.github.com/users/${e.target.value}`).then(result => {
                 this.setState({
@@ -45,10 +44,34 @@ class App extends Component {
         }
     }
 
+    getRepos() {
+        console.log('repos')
+        ajax().get(`https://api.github.com/users/${this.state.userInfo.login}/repos`).then(repos => {
+            console.log(repos)
+            this.setState({
+                repos: repos.map(r => { return { name: r.full_name, link: r.clone_url } })
+            })
+            // this.setState({
+            //     repos
+            // })
+        })
+    }
+
+    getStarred() {
+        console.log('starred')
+        ajax().get(`https://api.github.com/users/${this.state.userInfo.login}/repos`).then(starred => {
+            this.setState({
+                starred: starred.map(r => { return { name: r.full_name, link: r.clone_url } })
+            })
+        })
+    }
+
     render() {
         return <AppContent
             userInfo={this.state.userInfo}
             repos={this.state.repos}
+            getRepos={() => this.getRepos()}
+            getStarred={() => this.getStarred()}
             handleSearch={(e) => this.handleSearch(e)}
             starred={this.state.starred}
         />
