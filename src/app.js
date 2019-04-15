@@ -6,6 +6,7 @@ import AppContent from './components/app-content'
 class App extends Component {
     constructor() {
         super()
+        this.handleSearch = this.handleSearch.bind(this)
         this.state = {
             userInfo: null,
             repos: [],
@@ -63,13 +64,15 @@ class App extends Component {
 
     render() {
         return <AppContent
-            userInfo={this.state.userInfo}
-            repos={this.state.repos}
-            isFetching={this.state.isFetching}
+            // userInfo={this.state.userInfo}
+            // starred={this.state.starred}
+            // repos={this.state.repos}
+            // isFetching={this.state.isFetching}
+            {...this.state} // replace lines comments behind
             getRepos={this.getRepos('repos')}
             getStarred={this.getRepos('starred')}
-            handleSearch={(e) => this.handleSearch(e)}
-            starred={this.state.starred}
+            // handleSearch={(e) => this.handleSearch(e)}   metodo mais lento
+            handleSearch={this.handleSearch} // metodo mais rapido line 9 required
         />
     }
 }
